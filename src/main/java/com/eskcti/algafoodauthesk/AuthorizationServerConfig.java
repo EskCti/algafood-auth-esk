@@ -34,6 +34,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.accessTokenValiditySeconds(60 * 60 * 6) // 6 horas
 				.refreshTokenValiditySeconds(60 * 60 * 24 * 60) // 60 dias
 			.and()
+				.withClient("faturamento")
+				.secret(passwordEncoder.encode("fat123"))
+				.authorizedGrantTypes("client_credentials")
+				.scopes("write", "read")
+			.and()
 				.withClient("checktoken")
 				.secret(passwordEncoder.encode("check123"))
 			.and()
