@@ -10,6 +10,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.CompositeTokenGranter;
+import org.springframework.security.oauth2.provider.TokenGranter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableAuthorizationServer
@@ -34,11 +38,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.accessTokenValiditySeconds(60 * 60 * 6) // 6 horas
 				.refreshTokenValiditySeconds(60 * 60 * 24 * 60) // 60 dias
 			.and()
-				.withClient("foodnanalytics")
+				.withClient("foodanalytics")
 				.secret(passwordEncoder.encode("food123"))
 				.authorizedGrantTypes("authorization_code")
 				.scopes("write", "read")
-				.redirectUris("http://aplicacao-cliente")
+				.redirectUris("http://www.foodanalytics.local:8082")
+			.and()
+				.withClient("webadmin")
+				.authorizedGrantTypes("implicit")
+				.scopes("write", "read")
+				.redirectUris("http://www.foodanalytics.local:8082")
 			.and()
 				.withClient("faturamento")
 				.secret(passwordEncoder.encode("fat123"))
@@ -65,6 +74,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints
 				.authenticationManager(authenticationManager)
 				.userDetailsService(userDetailsService)
-				.reuseRefreshTokens(false);
+				.reuseRefreshTokens(false)
+				.tokenGranter(tokenGranter(endpoints));
+	}
+
+	private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints) {
+		var pkceAuthorizationCodeTokenGranter = new PkceAuthorizationCodeTokenGranter(endpoints.getTokenServices(),
+				endpoints.getAuthorizationCodeServices(), endpoints.getClientDetailsService(),
+				endpoints.getOAuth2RequestFactory());
+
+		var granters = Arrays.asList(
+				pkceAuthorizationCodeTokenGranter, endpoints.getTokenGranter());
+
+		return new CompositeTokenGranter(granters);
 	}
 }
