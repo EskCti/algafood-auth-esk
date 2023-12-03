@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class XAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -30,6 +30,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private KeyStoreProperties jwtKeyStoreProperties;
 
 //	@Autowired
 //	private RedisConnectionFactory redisConnectionFactory;
@@ -93,12 +96,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 //		jwtAccessTokenConverter.setSigningKey("5MU8/YgrnHELFHEypwoIfstdqvzxUE4KoZe1vpG+6S8=");
 
-		var jksResource = new ClassPathResource("keystores/algafood.jks");
-		var keyStorePass = "123456";
-		var keyPairAlias = "algafood";
+		var jksResource = new ClassPathResource(jwtKeyStoreProperties.getPath());
+		var keyStorePass = jwtKeyStoreProperties.getPassword();
+		var keyPairAlias = jwtKeyStoreProperties.getKeypairAlias();
 
 		var keyStoreKeyFactory = new KeyStoreKeyFactory(jksResource, keyStorePass.toCharArray());
 		var keyPair = keyStoreKeyFactory.getKeyPair(keyPairAlias);
+
 		jwtAccessTokenConverter.setKeyPair(keyPair);
 
 		return  jwtAccessTokenConverter;
