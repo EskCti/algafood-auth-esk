@@ -1,4 +1,4 @@
-package com.eskcti.algafoodauthesk;
+package com.eskcti.algafoodauthesk.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
