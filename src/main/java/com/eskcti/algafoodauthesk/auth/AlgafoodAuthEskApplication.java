@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AlgafoodAuthEskApplication {
 
 	public static void main(String[] args) {
+//		RandomSecretGenerator.main(args);
 		SpringApplication.run(AlgafoodAuthEskApplication.class, args);
 	}
 
