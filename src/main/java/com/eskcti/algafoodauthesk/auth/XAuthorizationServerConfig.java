@@ -76,7 +76,9 @@ public class XAuthorizationServerConfig extends AuthorizationServerConfigurerAda
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 //		security.checkTokenAccess("isAuthenticated()");
-		security.checkTokenAccess("permitAll()");
+		security.checkTokenAccess("permitAll()")
+				.tokenKeyAccess("permitAll()")
+				.allowFormAuthenticationForClients();
     }
 
     @Override
