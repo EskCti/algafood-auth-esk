@@ -1,4 +1,4 @@
-package com.eskcti.algafoodauthesk.auth;
+package com.eskcti.algafoodauthesk.auth.core;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;

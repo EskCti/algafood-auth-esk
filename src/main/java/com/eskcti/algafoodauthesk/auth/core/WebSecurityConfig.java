@@ -1,4 +1,4 @@
-package com.eskcti.algafoodauthesk.auth;
+package com.eskcti.algafoodauthesk.auth.core;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,17 +13,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("thiago")
-                    .password(passwordEncoder().encode("123"))
-                    .roles("ADMIN")
-                .and()
-                .withUser("joao")
-                    .password(passwordEncoder().encode("123"))
-                    .roles("ADMIN");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("thiago")
+//                    .password(passwordEncoder().encode("123"))
+//                    .roles("ADMIN")
+//                .and()
+//                .withUser("joao")
+//                    .password(passwordEncoder().encode("123"))
+//                    .roles("ADMIN");
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,9 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return super.userDetailsService();
-    }
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        return super.userDetailsService();
+//    }
 }

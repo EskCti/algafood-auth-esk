@@ -1,4 +1,4 @@
-package com.eskcti.algafoodauthesk.auth;
+package com.eskcti.algafoodauthesk.auth.core;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.extern.slf4j.Slf4j;

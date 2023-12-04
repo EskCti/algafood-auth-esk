@@ -1,4 +1,4 @@
-package com.eskcti.algafoodauthesk.auth;
+package com.eskcti.algafoodauthesk.auth.core;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.eskcti.algafoodauthesk.auth;
+package com.eskcti.algafoodauthesk.auth.core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
